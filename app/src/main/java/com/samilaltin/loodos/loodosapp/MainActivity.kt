@@ -20,7 +20,6 @@ class MainActivity : TemplateActivity() {
     override fun onCreateViewInstances() {
         super.onCreateViewInstances()
         SomeSingleton.instance!!.init(this, this.findViewById(android.R.id.content))
-        val contentFrame = findViewById<FrameLayout>(R.id.content_frame)
     }
 
     override fun onBindViewModel() {
