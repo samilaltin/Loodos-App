@@ -52,18 +52,19 @@ class RemoteConfig : Fragment() {
         mFirebaseRemoteConfig.setConfigSettings(configSettings)
         mFirebaseRemoteConfig.setDefaults(R.xml.remote_config)
         FirebaseRemoteConfig.getInstance().setConfigSettings(configSettings)
+        Log.d(GlobalParameters.TAG_LOG, getString(R.string.remote_config_settings_completed))
         fetch()
     }
 
     private fun fetch() {
-        var cacheExpiration: Long = 3000
+        var cacheExpiration: Long = 20000
         if (mFirebaseRemoteConfig.info.configSettings.isDeveloperModeEnabled) {
             cacheExpiration = 0
         }
         mFirebaseRemoteConfig.fetch(cacheExpiration)
             .addOnCompleteListener(activity!!) { task ->
                 if (task.isSuccessful) {
-                    Log.d(GlobalParameters.TAG_LOG, "Fetch Succeeded")
+                    Log.d(GlobalParameters.TAG_LOG, getString(R.string.fetch_succeeded))
                     mFirebaseRemoteConfig.activateFetched()
                     val textFromRemoteConfig = mFirebaseRemoteConfig.getString("textFromRemoteConfig")
                     val textColor = mFirebaseRemoteConfig.getString("textColor")
@@ -71,7 +72,7 @@ class RemoteConfig : Fragment() {
                     setTextFromRemoteConfig(textFromRemoteConfig, textColor, textSize)
                 } else {
                     SomeSingleton.instance!!.showSnackBarOrToast("Fetch Failed")
-                    Log.d(GlobalParameters.TAG_LOG, "Fetch Failed")
+                    Log.d(GlobalParameters.TAG_LOG, getString(R.string.fetch_failed))
                 }
             }
     }
@@ -80,6 +81,7 @@ class RemoteConfig : Fragment() {
         txtFromRemoteConfig.text = textFromRemoteConfig
         txtFromRemoteConfig.textSize = textSize.toFloat()
         txtFromRemoteConfig.setTextColor(Color.parseColor(textColor))
+        Log.d(GlobalParameters.TAG_LOG, getString(R.string.text_from_remote_config_is_set))
         goToSearchMovieFragment()
     }
 
