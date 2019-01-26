@@ -1,6 +1,6 @@
 package com.samilaltin.loodos.loodosapp.services
 
-import com.samilaltin.loodos.loodosapp.common.Settings
+import com.samilaltin.loodos.loodosapp.common.GlobalParameters
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,7 +19,7 @@ object APIClient {
                 .addInterceptor(interceptor)
                 .build()
 
-            val baseUrl = Settings.baseURL
+            val baseUrl = GlobalParameters.baseURL
             return Retrofit.Builder().baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)

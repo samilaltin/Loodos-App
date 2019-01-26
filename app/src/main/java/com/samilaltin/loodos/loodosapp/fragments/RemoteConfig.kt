@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.samilaltin.loodos.loodosapp.BuildConfig
 
 import com.samilaltin.loodos.loodosapp.R
-import com.samilaltin.loodos.loodosapp.common.Settings
+import com.samilaltin.loodos.loodosapp.common.GlobalParameters
 import com.samilaltin.loodos.loodosapp.common.SomeSingleton
 import com.samilaltin.loodos.loodosapp.common.Utility
 import kotlinx.android.synthetic.main.fragment_remote_config.*
@@ -62,6 +63,7 @@ class RemoteConfig : Fragment() {
         mFirebaseRemoteConfig.fetch(cacheExpiration)
             .addOnCompleteListener(activity!!) { task ->
                 if (task.isSuccessful) {
+                    Log.d(GlobalParameters.TAG_LOG, "Fetch Succeeded")
                     mFirebaseRemoteConfig.activateFetched()
                     val textFromRemoteConfig = mFirebaseRemoteConfig.getString("textFromRemoteConfig")
                     val textColor = mFirebaseRemoteConfig.getString("textColor")
@@ -69,6 +71,7 @@ class RemoteConfig : Fragment() {
                     setTextFromRemoteConfig(textFromRemoteConfig, textColor, textSize)
                 } else {
                     SomeSingleton.instance!!.showSnackBarOrToast("Fetch Failed")
+                    Log.d(GlobalParameters.TAG_LOG, "Fetch Failed")
                 }
             }
     }
@@ -83,7 +86,7 @@ class RemoteConfig : Fragment() {
     private fun goToSearchMovieFragment() {
         Handler().postDelayed({
             Utility.loadFragment(activity!!.supportFragmentManager, SearchMovie(), R.id.content_frame)
-        }, Settings.splashTime)
+        }, GlobalParameters.splashTime)
 
     }
 
