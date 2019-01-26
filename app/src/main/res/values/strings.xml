@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Loodos App</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="check_internet_connection_warning">Check your internet connection</string>
+
+</resources>

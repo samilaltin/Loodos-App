@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>textFromRemoteConfig</key>
+        <value>Loodos</value>
+    </entry>
+    <entry>
+        <key>textColor</key>
+        <value>#333333</value>
+    </entry>
+</defaultsMap>
