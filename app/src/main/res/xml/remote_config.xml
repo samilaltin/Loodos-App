@@ -8,4 +8,8 @@
         <key>textColor</key>
         <value>#333333</value>
     </entry>
+    <entry>
+        <key>textSize</key>
+        <value>26</value>
+    </entry>
 </defaultsMap>

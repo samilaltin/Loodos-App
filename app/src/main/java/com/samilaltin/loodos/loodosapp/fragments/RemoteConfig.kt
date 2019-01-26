@@ -1,7 +1,6 @@
 package com.samilaltin.loodos.loodosapp.fragments
 
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -9,7 +8,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.FirebaseApp
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.samilaltin.loodos.loodosapp.BuildConfig
@@ -34,52 +32,50 @@ private const val ARG_PARAM2 = "param2"
  */
 class RemoteConfig : Fragment() {
 
-    private var mRemoteConfig: FirebaseRemoteConfig? = null
+    private lateinit var mFirebaseRemoteConfig: FirebaseRemoteConfig
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val rootView =
-            inflater.inflate(R.layout.fragment_remote_config, container, false)
-//        setRemoteConfig()
-        goToSearchMovieFragment()
+        val rootView = inflater.inflate(R.layout.fragment_remote_config, container, false)
+        setRemoteConfig()
         return rootView
     }
 
     private fun setRemoteConfig() {
-        mRemoteConfig = FirebaseRemoteConfig.getInstance()
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
         val configSettings = FirebaseRemoteConfigSettings.Builder()
             .setDeveloperModeEnabled(BuildConfig.DEBUG).build()
-        mRemoteConfig!!.setConfigSettings(configSettings)
-        mRemoteConfig!!.setDefaults(R.xml.remote_config)
+        mFirebaseRemoteConfig.setConfigSettings(configSettings)
+        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config)
         FirebaseRemoteConfig.getInstance().setConfigSettings(configSettings)
         fetch()
     }
 
     private fun fetch() {
         var cacheExpiration: Long = 3000
-        if (mRemoteConfig!!.info.configSettings.isDeveloperModeEnabled) {
+        if (mFirebaseRemoteConfig.info.configSettings.isDeveloperModeEnabled) {
             cacheExpiration = 0
         }
-        mRemoteConfig!!.fetch(cacheExpiration)
+        mFirebaseRemoteConfig.fetch(cacheExpiration)
             .addOnCompleteListener(activity!!) { task ->
                 if (task.isSuccessful) {
-                    mRemoteConfig!!.activateFetched()
-
-                    val textFromRemoteConfig = mRemoteConfig!!.getString("textFromRemoteConfig")
-                    val textColor = mRemoteConfig!!.getString("textColor")
-
-                    setTextFromRemoteConfig(textFromRemoteConfig, textColor)
+                    mFirebaseRemoteConfig.activateFetched()
+                    val textFromRemoteConfig = mFirebaseRemoteConfig.getString("textFromRemoteConfig")
+                    val textColor = mFirebaseRemoteConfig.getString("textColor")
+                    val textSize = mFirebaseRemoteConfig.getString("textSize")
+                    setTextFromRemoteConfig(textFromRemoteConfig, textColor, textSize)
                 } else {
-                    SomeSingleton.instance!!.showSnackBarOrToast("Remote Config Error")
+                    SomeSingleton.instance!!.showSnackBarOrToast("Fetch Failed")
                 }
             }
     }
 
-    private fun setTextFromRemoteConfig(textFromRemoteConfig: String, textColor: String) {
+    private fun setTextFromRemoteConfig(textFromRemoteConfig: String, textColor: String, textSize: String) {
         txtFromRemoteConfig.text = textFromRemoteConfig
+        txtFromRemoteConfig.textSize = textSize.toFloat()
         txtFromRemoteConfig.setTextColor(Color.parseColor(textColor))
         goToSearchMovieFragment()
     }
