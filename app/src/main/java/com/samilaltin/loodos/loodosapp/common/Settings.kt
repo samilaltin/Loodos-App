@@ -6,4 +6,5 @@ package com.samilaltin.loodos.loodosapp.common
 object Settings {
     const val baseURL = "http://www.omdbapi.com/"
     val APIKey = "d406cb1f"
+    const val splashTime: Long = 3000
 }

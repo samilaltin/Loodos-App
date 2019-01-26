@@ -15,6 +15,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.samilaltin.loodos.loodosapp.BuildConfig
 
 import com.samilaltin.loodos.loodosapp.R
+import com.samilaltin.loodos.loodosapp.common.Settings
 import com.samilaltin.loodos.loodosapp.common.SomeSingleton
 import com.samilaltin.loodos.loodosapp.common.Utility
 import kotlinx.android.synthetic.main.fragment_remote_config.*
@@ -34,8 +35,7 @@ private const val ARG_PARAM2 = "param2"
 class RemoteConfig : Fragment() {
 
     private var mRemoteConfig: FirebaseRemoteConfig? = null
-    private var splashTime: Long = 3000
-    
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -87,7 +87,7 @@ class RemoteConfig : Fragment() {
     private fun goToSearchMovieFragment() {
         Handler().postDelayed({
             Utility.loadFragment(activity!!.supportFragmentManager, SearchMovie(), R.id.content_frame)
-        }, splashTime)
+        }, Settings.splashTime)
 
     }
 
