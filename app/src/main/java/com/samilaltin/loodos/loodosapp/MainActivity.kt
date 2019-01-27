@@ -1,7 +1,5 @@
 package com.samilaltin.loodos.loodosapp
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import com.samilaltin.loodos.loodosapp.common.GlobalParameters

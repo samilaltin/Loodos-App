@@ -4,18 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.support.design.widget.Snackbar
-import android.support.v4.app.FragmentActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
-import com.samilaltin.loodos.loodosapp.R
-import com.samilaltin.loodos.loodosapp.adapters.MovieListAdapter
-import com.samilaltin.loodos.loodosapp.fragments.SearchMovie
-import com.samilaltin.loodos.loodosapp.pojo.ServiceResponse
-import retrofit2.Response
 import java.lang.RuntimeException
-import java.util.ArrayList
 
 /**
  * Created by saltin on 26.01.2019
