@@ -8,12 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
     </style>
 
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/launch_screen</item>
+    </style>
 
+    <style name="Appcompat.ProgressBar" parent="@style/Theme.AppCompat">
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
 

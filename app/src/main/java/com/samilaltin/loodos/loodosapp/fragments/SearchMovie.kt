@@ -1,6 +1,5 @@
 package com.samilaltin.loodos.loodosapp.fragments
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -20,7 +19,6 @@ import com.samilaltin.loodos.loodosapp.services.APIClient
 import com.samilaltin.loodos.loodosapp.services.APIInterface
 import com.samilaltin.loodos.loodosapp.services.CallBackInterface
 import kotlinx.android.synthetic.main.fragment_search_movie.*
-import kotlinx.android.synthetic.main.fragment_search_movie.view.*
 import retrofit2.Call
 import retrofit2.Response
 import java.util.ArrayList
