@@ -1,6 +1,13 @@
 package com.samilaltin.loodos.loodosapp.pojo
 
-data class RatingsItem(
-	val value: String? = null,
-	val source: String? = null
-)
+import com.google.gson.annotations.SerializedName
+
+class RatingsItem {
+
+	@SerializedName("Value")
+	var value: String? = null
+
+	@SerializedName("Source")
+	var source: String? = null
+
+}

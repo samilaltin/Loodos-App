@@ -1,29 +1,85 @@
 package com.samilaltin.loodos.loodosapp.pojo
 
-data class ServiceResponse(
-	val metascore: String? = null,
-	val boxOffice: String? = null,
-	val website: String? = null,
-	val imdbRating: String? = null,
-	val imdbVotes: String? = null,
-	val ratings: List<RatingsItem?>? = null,
-	val runtime: String? = null,
-	val language: String? = null,
-	val rated: String? = null,
-	val production: String? = null,
-	val released: String? = null,
-	val imdbID: String? = null,
-	val plot: String? = null,
-	val director: String? = null,
-	val title: String? = null,
-	val actors: String? = null,
-	val response: String? = null,
-	val type: String? = null,
-	val awards: String? = null,
-	val dVD: String? = null,
-	val year: String? = null,
-	val poster: String? = null,
-	val country: String? = null,
-	val genre: String? = null,
-	val writer: String? = null
-)
+import com.google.gson.annotations.SerializedName
+
+class ServiceResponse {
+
+    @SerializedName("Metascore")
+    var metascore: String? = null
+
+    @SerializedName("BoxOffice")
+    var boxOffice: String? = null
+
+    @SerializedName("Error")
+    var error: String? = null
+
+    @SerializedName("Website")
+    var website: String? = null
+
+    @SerializedName("imdbRating")
+    var imdbRating: String? = null
+
+    @SerializedName("imdbVotes")
+    var imdbVotes: String? = null
+
+    @SerializedName("Ratings")
+    var ratings: List<RatingsItem>? = null
+
+    @SerializedName("Runtime")
+    var runtime: String? = null
+
+    @SerializedName("Language")
+    var language: String? = null
+
+    @SerializedName("Rated")
+    var rated: String? = null
+
+    @SerializedName("Production")
+    var production: String? = null
+
+    @SerializedName("Released")
+    var released: String? = null
+
+    @SerializedName("imdbID")
+    var imdbID: String? = null
+
+    @SerializedName("Plot")
+    var plot: String? = null
+
+    @SerializedName("Director")
+    var director: String? = null
+
+    @SerializedName("Title")
+    var title: String? = null
+
+    @SerializedName("Actors")
+    var actors: String? = null
+
+    @SerializedName("Response")
+    var response: String? = null
+
+    @SerializedName("Type")
+    var type: String? = null
+
+    @SerializedName("Awards")
+    var awards: String? = null
+
+    @SerializedName("DVD")
+    var dvd: String? = null
+
+    @SerializedName("Year")
+    var year: String? = null
+
+    @SerializedName("Poster")
+    var poster: String? = null
+
+    @SerializedName("Country")
+    var country: String? = null
+
+    @SerializedName("Genre")
+    var genre: String? = null
+
+    @SerializedName("Writer")
+    var writer: String? = null
+
+}

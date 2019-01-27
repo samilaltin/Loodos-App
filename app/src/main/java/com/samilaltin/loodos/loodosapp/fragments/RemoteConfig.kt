@@ -1,6 +1,5 @@
 package com.samilaltin.loodos.loodosapp.fragments
 
-
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -19,18 +18,6 @@ import com.samilaltin.loodos.loodosapp.common.SomeSingleton
 import com.samilaltin.loodos.loodosapp.common.Utility
 import kotlinx.android.synthetic.main.fragment_remote_config.*
 
-//import android.R
-
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class RemoteConfig : Fragment() {
 
     private lateinit var mFirebaseRemoteConfig: FirebaseRemoteConfig

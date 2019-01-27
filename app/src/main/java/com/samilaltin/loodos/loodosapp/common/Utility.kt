@@ -4,6 +4,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import java.util.ArrayList
 
 
 /**
@@ -13,7 +16,7 @@ object Utility {
 
     fun loadFragment(manager: FragmentManager, fragment: Fragment, frameId: Int) {
         val transaction = manager.beginTransaction()
-        transaction.replace(frameId,fragment)
+        transaction.replace(frameId, fragment)
         transaction.commit()
     }
 
@@ -24,5 +27,4 @@ object Utility {
             isConnected = true
         return isConnected
     }
-
 }
