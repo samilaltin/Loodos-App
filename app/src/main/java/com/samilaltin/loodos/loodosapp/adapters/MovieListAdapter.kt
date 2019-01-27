@@ -36,8 +36,6 @@ class MovieListAdapter(private val serviceResponseMovieList: List<ServiceRespons
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-
-//        val imageURL = serviceResponseMovieList[p1].poster
         setImageUsingPicasso(p0, serviceResponseMovieList[p1].poster)
         p0.txtTitleAndYear.text = serviceResponseMovieList[p1].title + " (" + serviceResponseMovieList[p1].year + ")"
         p0.txtGenre.text = serviceResponseMovieList[p1].genre
@@ -50,9 +48,8 @@ class MovieListAdapter(private val serviceResponseMovieList: List<ServiceRespons
     private fun setImageUsingPicasso(viewHolder: ViewHolder, imageURL: String?) {
         Picasso.get()
             .load(imageURL)
-//            .error(R.drawable.cancel)
+            .error(R.drawable.ic_no_poster)
             .into(viewHolder.imgPoster)
-
     }
 
 
