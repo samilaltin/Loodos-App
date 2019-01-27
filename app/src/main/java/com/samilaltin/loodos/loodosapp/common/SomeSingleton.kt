@@ -7,6 +7,9 @@ import android.support.design.widget.Snackbar
 import android.view.View
 import android.widget.Toast
 import java.lang.RuntimeException
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
+
 
 /**
  * Created by saltin on 26.01.2019
@@ -15,10 +18,12 @@ class SomeSingleton
 private constructor() {
     private var context: Context? = null
     private var view: View? = null
+    private var activity: Activity? = null
 
-    fun init(context: Context, view: View) {
+    fun init(context: Context, view: View, activity: Activity) {
         this.context = context
         this.view = view
+        this.activity = activity
     }
 
     init {
@@ -66,6 +71,14 @@ private constructor() {
         return context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 
+    fun hideKeyboard() {
+        val imm = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view = activity!!.currentFocus
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
 
 }
 

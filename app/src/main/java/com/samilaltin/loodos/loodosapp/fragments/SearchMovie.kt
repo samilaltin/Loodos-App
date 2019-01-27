@@ -57,14 +57,20 @@ class SearchMovie : Fragment() {
     }
 
     private fun request() {
+        SomeSingleton.instance?.hideKeyboard()
         val movieTitle = rootView!!.findViewById<EditText>(R.id.txtSearch).text.toString()
         apiInterface = APIClient.client.create(APIInterface::class.java)
-        val call = apiInterface!!.searchMovie(GlobalParameters.baseURL + movieTitle + GlobalParameters.APIKey)
-        call.enqueue(object : CallBackInterface<ServiceResponse> {
-            override fun onResponse(call: Call<ServiceResponse>, response: Response<ServiceResponse>) {
-                response(response)
-            }
-        })
+        if (!movieTitle.isEmpty()) {
+            val call = apiInterface!!.searchMovie(GlobalParameters.baseURL + movieTitle + GlobalParameters.APIKey)
+            call.enqueue(object : CallBackInterface<ServiceResponse> {
+                override fun onResponse(call: Call<ServiceResponse>, response: Response<ServiceResponse>) {
+                    response(response)
+                }
+            })
+        } else {
+            txtSearch.error = ""
+        }
+
     }
 
     private fun response(response: Response<ServiceResponse>) {

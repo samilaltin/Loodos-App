@@ -18,7 +18,7 @@ class MainActivity : TemplateActivity() {
 
     override fun onCreateViewInstances() {
         super.onCreateViewInstances()
-        SomeSingleton.instance!!.init(this, this.findViewById(android.R.id.content))
+        SomeSingleton.instance!!.init(this, this.findViewById(android.R.id.content),this)
     }
 
     override fun onBindViewModel() {
