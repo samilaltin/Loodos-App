@@ -1,15 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".fragments.SearchMovie">
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.SearchMovie">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-            android:gravity="center"
+    <LinearLayout
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="SearchMovie Fragment"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp">
 
-</FrameLayout>
+        <EditText
+                android:id="@+id/txtSearch"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textCursorDrawable="@drawable/search_edittext_cursor_color"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:hint="@string/movie_title"/>
+
+
+        <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/search"
+                android:textColor="@color/colorWhite"
+                android:textAllCaps="false"
+                android:text="@string/search"
+                android:background="@color/colorPrimaryDark"
+                android:drawableEnd="@drawable/ic_search_white_24dp"
+                android:foreground="?android:attr/selectableItemBackground"/>
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

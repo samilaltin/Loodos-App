@@ -10,5 +10,7 @@
     <string name="remote_config_settings_completed">remote config settings completed</string>
     <string name="fetch_succeeded">Fetch Succeeded</string>
     <string name="fetch_failed">Fetch Failed</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="search">Search</string>
 
 </resources>
