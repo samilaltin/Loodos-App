@@ -14,7 +14,11 @@ object Utility {
     fun loadFragment(manager: FragmentManager, fragment: Fragment, frameId: Int) {
         val transaction = manager.beginTransaction()
         transaction.replace(frameId, fragment)
-        transaction.commit()
+        try {
+            transaction.commit()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun hasNetwork(connectivityManager: ConnectivityManager?): Boolean? {
@@ -24,7 +28,6 @@ object Utility {
             isConnected = true
         return isConnected
     }
-
 
 
 }
