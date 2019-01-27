@@ -9,7 +9,6 @@ import android.widget.Toast
 import java.lang.RuntimeException
 import android.app.Activity
 import android.view.inputmethod.InputMethodManager
-import android.support.v4.content.ContextCompat.getSystemService
 import android.widget.EditText
 
 
