@@ -1,5 +1,6 @@
 package com.samilaltin.loodos.loodosapp.fragments
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -50,7 +51,6 @@ class SearchMovie : Fragment() {
     }
 
 
-
     private fun searchMovie() {
         if (Utility.hasNetwork(SomeSingleton.instance?.getConnectivityManager())!!) {
             request()
@@ -65,6 +65,7 @@ class SearchMovie : Fragment() {
         val movieTitle = rootView!!.findViewById<EditText>(R.id.txtSearch).text.toString()
         apiInterface = APIClient.client.create(APIInterface::class.java)
         if (!movieTitle.isEmpty()) {
+            progressBar.visibility = View.VISIBLE
             val call = apiInterface!!.searchMovie(GlobalParameters.baseURL + movieTitle + GlobalParameters.APIKey)
             call.enqueue(object : CallBackInterface<ServiceResponse> {
                 override fun onResponse(call: Call<ServiceResponse>, response: Response<ServiceResponse>) {
@@ -82,8 +83,10 @@ class SearchMovie : Fragment() {
             if (response.isSuccessful) {
                 if (!response.body()!!.response.equals("True")) {
                     SomeSingleton.instance!!.showSnackBarOrToast(response.body()!!.error!!)
+                    movie_list.visibility = View.GONE
                 } else {
                     setMovieDatas(response.body()!!)
+                    movie_list.visibility = View.VISIBLE
                 }
             } else {
                 SomeSingleton.instance!!.showSnackBarOrToast(response.body()!!.error!!)
@@ -91,6 +94,7 @@ class SearchMovie : Fragment() {
         } else {
             SomeSingleton.instance!!.showSnackBarOrToast(getString(R.string.please_try_again_later))
         }
+        progressBar.visibility = View.GONE
     }
 
     private fun setMovieDatas(serviceResponse: ServiceResponse) {
@@ -103,6 +107,7 @@ class SearchMovie : Fragment() {
         movie_list.layoutManager = LinearLayoutManager(activity)
         movieListAdapter = MovieListAdapter(list)
         movie_list.adapter = movieListAdapter
+        movie_list.visibility = View.VISIBLE
     }
 
 
