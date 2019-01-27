@@ -9,6 +9,7 @@
     <string name="text_from_remote_config_is_set">Text from Remote Config is set</string>
     <string name="remote_config_settings_completed">remote config settings completed</string>
     <string name="please_try_again_later">There was an error on the server. Please try again</string>
+    <string name="not_be_empty">Not be empty</string>
     <string name="fetch_succeeded">Fetch Succeeded</string>
     <string name="fetch_failed">Fetch Failed</string>
     <string name="movie_title">Movie Title</string>

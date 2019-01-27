@@ -19,6 +19,7 @@ import com.samilaltin.loodos.loodosapp.services.APIClient
 import com.samilaltin.loodos.loodosapp.services.APIInterface
 import com.samilaltin.loodos.loodosapp.services.CallBackInterface
 import kotlinx.android.synthetic.main.fragment_search_movie.*
+import kotlinx.android.synthetic.main.fragment_search_movie.view.*
 import retrofit2.Call
 import retrofit2.Response
 import java.util.ArrayList
@@ -44,8 +45,11 @@ class SearchMovie : Fragment() {
     }
 
     private fun init() {
+        SomeSingleton.instance?.focusAndShowKeyboard(rootView!!.findViewById(R.id.txtSearch))
         rootView!!.findViewById<Button>(R.id.btnSearch).setOnClickListener { searchMovie() }
     }
+
+
 
     private fun searchMovie() {
         if (Utility.hasNetwork(SomeSingleton.instance?.getConnectivityManager())!!) {
@@ -68,7 +72,7 @@ class SearchMovie : Fragment() {
                 }
             })
         } else {
-            txtSearch.error = ""
+            txtSearch.error = getString(R.string.not_be_empty)
         }
 
     }

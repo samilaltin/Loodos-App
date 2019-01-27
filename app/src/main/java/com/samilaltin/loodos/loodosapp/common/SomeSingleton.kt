@@ -9,6 +9,8 @@ import android.widget.Toast
 import java.lang.RuntimeException
 import android.app.Activity
 import android.view.inputmethod.InputMethodManager
+import android.support.v4.content.ContextCompat.getSystemService
+import android.widget.EditText
 
 
 /**
@@ -79,6 +81,13 @@ private constructor() {
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
+    fun focusAndShowKeyboard(editText: EditText) {
+        editText.requestFocus()
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm!!.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
+    }
+
 
 }
 
