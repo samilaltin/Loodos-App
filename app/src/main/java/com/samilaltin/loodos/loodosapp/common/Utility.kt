@@ -4,9 +4,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v7.widget.LinearLayoutManager
-import android.view.View
-import java.util.ArrayList
 
 
 /**
@@ -20,11 +17,14 @@ object Utility {
         transaction.commit()
     }
 
-    fun hasNetwork(connectivityManager: ConnectivityManager): Boolean? {
+    fun hasNetwork(connectivityManager: ConnectivityManager?): Boolean? {
         var isConnected: Boolean? = false
-        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+        val activeNetwork: NetworkInfo? = connectivityManager?.activeNetworkInfo
         if (activeNetwork != null && activeNetwork.isConnected)
             isConnected = true
         return isConnected
     }
+
+
+
 }

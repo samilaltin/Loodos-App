@@ -1,5 +1,7 @@
 package com.samilaltin.loodos.loodosapp.fragments
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -13,6 +15,7 @@ import com.samilaltin.loodos.loodosapp.R
 import com.samilaltin.loodos.loodosapp.adapters.MovieListAdapter
 import com.samilaltin.loodos.loodosapp.common.GlobalParameters
 import com.samilaltin.loodos.loodosapp.common.SomeSingleton
+import com.samilaltin.loodos.loodosapp.common.Utility
 import com.samilaltin.loodos.loodosapp.pojo.ServiceResponse
 import com.samilaltin.loodos.loodosapp.services.APIClient
 import com.samilaltin.loodos.loodosapp.services.APIInterface
@@ -47,31 +50,48 @@ class SearchMovie : Fragment() {
     }
 
     private fun searchMovie() {
+        if (Utility.hasNetwork(SomeSingleton.instance?.getConnectivityManager())!!) {
+            request()
+        } else {
+            SomeSingleton.instance!!.showSnackBarOrToast(getString(R.string.check_internet_connection_warning))
+        }
+
+    }
+
+    private fun request() {
         val movieTitle = rootView!!.findViewById<EditText>(R.id.txtSearch).text.toString()
         apiInterface = APIClient.client.create(APIInterface::class.java)
         val call = apiInterface!!.searchMovie(GlobalParameters.baseURL + movieTitle + GlobalParameters.APIKey)
         call.enqueue(object : CallBackInterface<ServiceResponse> {
             override fun onResponse(call: Call<ServiceResponse>, response: Response<ServiceResponse>) {
-                if (response.body() != null) {
-                    if (response.isSuccessful) {
-                        setDatas(response.body()!!)
-                    } else {
-                        SomeSingleton.instance!!.showSnackBarOrToast(response.body()!!.error!!)
-                    }
-                } else {
-//                    RequestSingleton.getInstance().showToast("Beklenmedik Bir Hata Oluştu.")
-                }
+                response(response)
             }
         })
     }
 
-    private fun setDatas(serviceResponse: ServiceResponse) {
-        val movieList = ArrayList<ServiceResponse>()
-        movieList.add(serviceResponse)
-        setAdapter(movieList)
+    private fun response(response: Response<ServiceResponse>) {
+        if (response.body() != null) {
+            if (response.isSuccessful) {
+                if (!response.body()!!.response.equals("True")) {
+                    SomeSingleton.instance!!.showSnackBarOrToast(response.body()!!.error!!)
+                } else {
+                    setMovieDatas(response.body()!!)
+                }
+            } else {
+                SomeSingleton.instance!!.showSnackBarOrToast(response.body()!!.error!!)
+            }
+        } else {
+            SomeSingleton.instance!!.showSnackBarOrToast(getString(R.string.please_try_again_later))
+        }
     }
 
-    private fun setAdapter(list: ArrayList<ServiceResponse>) {
+    private fun setMovieDatas(serviceResponse: ServiceResponse) {
+        val movieList = ArrayList<ServiceResponse>()
+        movieList.add(serviceResponse)
+        setMovieListAdapter(movieList)
+    }
+
+    private fun setMovieListAdapter(list: ArrayList<ServiceResponse>) {
         movie_list.layoutManager = LinearLayoutManager(activity)
         movieListAdapter = MovieListAdapter(list)
         movie_list.adapter = movieListAdapter

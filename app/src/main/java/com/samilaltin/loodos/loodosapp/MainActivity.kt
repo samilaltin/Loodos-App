@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.FrameLayout
 import com.samilaltin.loodos.loodosapp.common.GlobalParameters
 import com.samilaltin.loodos.loodosapp.common.SomeSingleton
 import com.samilaltin.loodos.loodosapp.common.Utility
@@ -26,8 +25,7 @@ class MainActivity : TemplateActivity() {
 
     override fun onBindViewModel() {
         super.onBindViewModel()
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (Utility.hasNetwork(connectivityManager)!!) {
+        if (Utility.hasNetwork(SomeSingleton.instance?.getConnectivityManager())!!) {
             Log.d(GlobalParameters.TAG_LOG, getString(R.string.internet_connection_success))
             Utility.loadFragment(supportFragmentManager, RemoteConfig(), R.id.content_frame)
         } else {
