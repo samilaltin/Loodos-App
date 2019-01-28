@@ -44,8 +44,8 @@ class SearchMovie : Fragment() {
     }
 
     private fun init() {
-        SomeSingleton.instance?.focusAndShowKeyboard(rootView!!.findViewById(R.id.txtSearch))
-        rootView!!.findViewById<Button>(R.id.btnSearch).setOnClickListener { searchMovie() }
+        SomeSingleton.instance?.focusAndShowKeyboard(rootView?.findViewById(R.id.txtSearch))
+        rootView?.findViewById<Button>(R.id.btnSearch)?.setOnClickListener { searchMovie() }
     }
 
 
@@ -53,19 +53,19 @@ class SearchMovie : Fragment() {
         if (Utility.hasNetwork(SomeSingleton.instance?.getConnectivityManager())!!) {
             request()
         } else {
-            SomeSingleton.instance!!.showSnackBarOrToast(getString(R.string.check_internet_connection_warning))
+            SomeSingleton.instance?.showSnackBarOrToast(getString(R.string.check_internet_connection_warning))
         }
 
     }
 
     private fun request() {
         SomeSingleton.instance?.hideKeyboard()
-        val movieTitle = rootView!!.findViewById<EditText>(R.id.txtSearch).text.toString()
+        val movieTitle = rootView?.findViewById<EditText>(R.id.txtSearch)?.text.toString()
         apiInterface = APIClient.client.create(APIInterface::class.java)
         if (!movieTitle.isEmpty()) {
             progressBar.visibility = View.VISIBLE
-            val call = apiInterface!!.searchMovie(GlobalParameters.baseURL + movieTitle + GlobalParameters.APIKey)
-            call.enqueue(object : CallBackInterface<ServiceResponse> {
+            val call = apiInterface?.searchMovie(GlobalParameters.baseURL + movieTitle + GlobalParameters.APIKey)
+            call?.enqueue(object : CallBackInterface<ServiceResponse> {
                 override fun onResponse(call: Call<ServiceResponse>, response: Response<ServiceResponse>) {
                     response(response)
                 }
@@ -77,22 +77,13 @@ class SearchMovie : Fragment() {
     }
 
     private fun response(response: Response<ServiceResponse>) {
-        if (response.body() != null) {
-            if (response.isSuccessful) {
-                if (!response.body()!!.response.equals("True")) {
-                    SomeSingleton.instance!!.showSnackBarOrToast(response.body()!!.error!!)
-                    movie_list.visibility = View.GONE
-                } else {
-                    setMovieDatas(response.body()!!)
-                    movie_list.visibility = View.VISIBLE
-                }
-            } else {
-                SomeSingleton.instance!!.showSnackBarOrToast(response.body()!!.error!!)
-            }
-        } else {
-            SomeSingleton.instance!!.showSnackBarOrToast(getString(R.string.please_try_again_later))
+
+        if (responseControl(response)) {
+            setMovieDatas(response.body()!!)
+            movie_list.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
         }
-        progressBar.visibility = View.GONE
+
     }
 
     private fun setMovieDatas(serviceResponse: ServiceResponse) {
@@ -106,6 +97,34 @@ class SearchMovie : Fragment() {
         movieListAdapter = MovieListAdapter(list)
         movie_list.adapter = movieListAdapter
         movie_list.visibility = View.VISIBLE
+    }
+
+    private fun responseControl(response: Response<ServiceResponse>): Boolean {
+
+        val controls = booleanArrayOf(
+            response.body() == null,
+            !response.isSuccessful,
+            !response.body()?.response.equals("True")
+        )
+
+        val messages = arrayOf(
+            getString(R.string.please_try_again_later),
+            response.body()!!.error!!,
+            response.body()!!.error!!
+        )
+
+        var position = 0
+        for (bool in controls) {
+            if (bool) {
+                SomeSingleton.instance!!.showSnackBarOrToast(messages[position])
+                movie_list.visibility = View.GONE
+                progressBar.visibility = View.GONE
+                return false
+            }
+            position += 1
+        }
+
+        return true
     }
 
 

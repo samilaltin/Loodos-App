@@ -20,7 +20,9 @@ import kotlinx.android.synthetic.main.fragment_remote_config.*
 
 class RemoteConfig : Fragment() {
 
+    private val isHandlerStopped = false
     private lateinit var mFirebaseRemoteConfig: FirebaseRemoteConfig
+    val handler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +33,7 @@ class RemoteConfig : Fragment() {
         setRemoteConfig()
         return rootView
     }
+
 
     private fun setRemoteConfig() {
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
@@ -58,7 +61,7 @@ class RemoteConfig : Fragment() {
                     val textSize = mFirebaseRemoteConfig.getString("textSize")
                     setTextFromRemoteConfig(textFromRemoteConfig, textColor, textSize)
                 } else {
-                    SomeSingleton.instance!!.showSnackBarOrToast("Fetch Failed")
+                    SomeSingleton.instance?.showSnackBarOrToast(getString(R.string.fetch_failed))
                     Log.d(GlobalParameters.TAG_LOG, getString(R.string.fetch_failed))
                 }
             }
@@ -72,11 +75,31 @@ class RemoteConfig : Fragment() {
         goToSearchMovieFragment()
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        handler.post(runnableCode)
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacksAndMessages(null)
+    }
+
     private fun goToSearchMovieFragment() {
-        Handler().postDelayed({
-            Utility.loadFragment(activity!!.supportFragmentManager, SearchMovie(), R.id.content_frame)
+        handler.postDelayed({
+            Utility.loadFragment(activity?.supportFragmentManager, SearchMovie(), R.id.content_frame)
         }, GlobalParameters.splashTime)
 
+    }
+
+
+    private val runnableCode = object : Runnable {
+        override fun run() {
+            goToSearchMovieFragment()
+            handler.postDelayed(this, GlobalParameters.splashTime)
+        }
     }
 
 }

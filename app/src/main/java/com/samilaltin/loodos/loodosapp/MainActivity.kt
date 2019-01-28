@@ -18,7 +18,7 @@ class MainActivity : TemplateActivity() {
 
     override fun onCreateViewInstances() {
         super.onCreateViewInstances()
-        SomeSingleton.instance!!.init(this, this.findViewById(android.R.id.content),this)
+        SomeSingleton.instance?.init(this, this.findViewById(android.R.id.content),this)
     }
 
     override fun onBindViewModel() {
@@ -28,7 +28,7 @@ class MainActivity : TemplateActivity() {
             Utility.loadFragment(supportFragmentManager, RemoteConfig(), R.id.content_frame)
         } else {
             val connectionWarning = getString(R.string.check_internet_connection_warning)
-            SomeSingleton.instance!!.showSnackBarOrToast(connectionWarning)
+            SomeSingleton.instance?.showSnackBarOrToast(connectionWarning)
             Log.d(GlobalParameters.TAG_LOG, getString(R.string.internet_connection_failed))
         }
     }

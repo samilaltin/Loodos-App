@@ -11,11 +11,11 @@ import android.support.v4.app.FragmentManager
  */
 object Utility {
 
-    fun loadFragment(manager: FragmentManager, fragment: Fragment, frameId: Int) {
-        val transaction = manager.beginTransaction()
-        transaction.replace(frameId, fragment)
+    fun loadFragment(manager: FragmentManager?, fragment: Fragment, frameId: Int) {
+        val transaction = manager?.beginTransaction()
+        transaction?.replace(frameId, fragment)
         try {
-            transaction.commit()
+            transaction?.commit()
         } catch (e: Exception) {
             e.printStackTrace()
         }

@@ -10,8 +10,16 @@ class ServiceResponse {
     @SerializedName("BoxOffice")
     var boxOffice: String? = null
 
-    @SerializedName("Error")
-    var error: String? = null
+//    @SerializedName("Error")
+//    var error: String? = null
+
+    private var Error: String? = null
+
+    var error: String?
+        get() = if (Error == null) "" else Error
+        set(error) {
+            Error = error ?: ""
+        }
 
     @SerializedName("Website")
     var website: String? = null
